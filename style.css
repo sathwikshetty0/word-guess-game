@@ -57,10 +57,23 @@ body {
     padding: 20px;
     backdrop-filter: blur(16px);
     background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
     border-radius: var(--border-radius);
     margin: 10px;
+    position: relative;
+    box-shadow: var(--glass-shadow);
+    border: 3px solid;
+    border-image: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), #38bdf8, #f472b6, var(--accent-primary)) 1;
+    animation: border-animate 4s linear infinite;
+}
+
+@keyframes border-animate {
+    0% {
+        border-image-source: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), #38bdf8, #f472b6, var(--accent-primary));
+    }
+    100% {
+        border-image-source: linear-gradient(495deg, #f472b6, #38bdf8, var(--accent-secondary), var(--accent-primary), #f472b6);
+    }
+}
 }
 
 header {
@@ -70,6 +83,11 @@ header {
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
 }
 
 .logo {
@@ -98,10 +116,21 @@ h1 {
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: 2px;
-    background: linear-gradient(to right, #fff, #94a3b8);
+    background: linear-gradient(90deg, #fff, #94a3b8, var(--accent-primary), var(--accent-secondary), #fff);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: text-gradient-move 3s linear infinite;
+}
+
+@keyframes text-gradient-move {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }
 
 h1 span {
@@ -162,9 +191,16 @@ h1 span {
     font-weight: 700;
     text-transform: uppercase;
     border-radius: 8px;
-    transition: all 0.1s ease;
+    transition: all 0.1s ease, box-shadow 0.2s;
     user-select: none;
     background: rgba(15, 23, 42, 0.5);
+    cursor: pointer;
+}
+
+.tile:hover {
+    box-shadow: 0 0 12px 2px var(--accent-primary), 0 0 0 2px var(--accent-secondary);
+    transform: scale(1.08);
+    z-index: 2;
 }
 
 .tile[data-state="typing"] {
@@ -199,6 +235,10 @@ h1 span {
     flex-direction: column;
     gap: 8px;
     user-select: none;
+    box-shadow: 0 8px 32px 0 rgba(139, 92, 246, 0.15), 0 1.5px 8px 0 rgba(0,0,0,0.12);
+    border-radius: 12px;
+    padding-bottom: 8px;
+    background: rgba(30, 41, 59, 0.25);
 }
 
 .keyboard-row {
@@ -285,14 +325,15 @@ h1 span {
 #modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
+    background: rgba(139, 92, 246, 0.18);
+    backdrop-filter: blur(16px) saturate(120%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
     padding: 20px;
     transition: opacity 0.3s ease;
+    box-shadow: 0 0 80px 0 rgba(139, 92, 246, 0.25);
 }
 
 .modal {
